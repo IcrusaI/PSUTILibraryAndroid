@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="faculties_array">
+        <item>ALL</item>
+        <item>FIST</item>
+        <item>FTR</item>
+        <item>FBTO</item>
+    </string-array>
+
+</resources>
