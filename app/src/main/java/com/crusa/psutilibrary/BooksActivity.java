@@ -1,6 +1,8 @@
 package com.crusa.psutilibrary;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -161,6 +163,7 @@ public class BooksActivity extends Activity {
                 initializeData();
             }
         };
+
         spinner.setOnItemSelectedListener(itemSelectedListener);
     }
 
@@ -180,8 +183,10 @@ public class BooksActivity extends Activity {
                 if (data.equals("ALL")) {
                     semester = null;
                 } else {
-                    semester = (int) parent.getItemAtPosition(position);
+                    semester = position;
                 }
+
+                initializeData();
             }
 
             @Override
@@ -192,5 +197,12 @@ public class BooksActivity extends Activity {
     }
 
     public void clickButton(View view) {
+        int id = view.getId();
+
+        Book book = books.get(id);
+
+        Uri uri = Uri.parse(book.getDownloadLink());
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
     }
 }

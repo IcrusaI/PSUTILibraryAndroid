@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.crusa.psutilibrary.R;
@@ -34,12 +35,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHol
 
     @Override
     public void onBindViewHolder(BooksViewHolder booksViewHolder, int i) {
-        booksViewHolder.title.setText(books.get(i).getTitle());
-
-        String description = books.get(i).getAuthor().getName() + " · "
-                + books.get(i).getFaculty() + " · "
-                + books.get(i).getSemester() + " семестр.";
-        booksViewHolder.description.setText(description);
+        booksViewHolder.bind(books.get(i), i);
     }
 
     @Override
@@ -48,15 +44,24 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHol
     }
 
     public static class BooksViewHolder extends RecyclerView.ViewHolder {
-        CardView cv;
-        TextView title;
-        TextView description;
+        CardView cv = (CardView)itemView.findViewById(R.id.bookItem);
+        TextView title = (TextView)itemView.findViewById(R.id.title);
+        TextView description = (TextView)itemView.findViewById(R.id.description);
+        TextView downloadBtn = (Button)itemView.findViewById(R.id.download_btn);
 
         BooksViewHolder(View itemView) {
             super(itemView);
-            cv = (CardView)itemView.findViewById(R.id.bookItem);
-            title = (TextView)itemView.findViewById(R.id.title);
-            description = (TextView)itemView.findViewById(R.id.description);
+        }
+
+        void bind(Book book, int i) {
+            title.setText(book.getTitle());
+
+            description.setText(book.getAuthor().getName() + " · "
+                    + book.getFaculty() + " · "
+                    + book.getSemester() + " семестр.");
+
+            downloadBtn.setId(i);
+
         }
     }
 
