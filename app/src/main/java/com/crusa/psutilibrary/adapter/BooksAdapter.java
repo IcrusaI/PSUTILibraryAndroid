@@ -15,10 +15,6 @@ import java.util.List;
 public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHolder>{
     List<Book> books;
 
-    public BooksAdapter(List<Book> books) {
-        this.books = books;
-    }
-
     @Override
     public int getItemCount() {
         return books.size();
@@ -31,10 +27,19 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewHol
         return pvh;
     }
 
+    public void setData(List<Book> books) {
+        this.books = books;
+        this.notifyDataSetChanged();
+    }
+
     @Override
     public void onBindViewHolder(BooksViewHolder booksViewHolder, int i) {
         booksViewHolder.title.setText(books.get(i).getTitle());
-        booksViewHolder.description.setText(books.get(i).getAuthor().getName());
+
+        String description = books.get(i).getAuthor().getName() + " · "
+                + books.get(i).getFaculty() + " · "
+                + books.get(i).getSemester() + " семестр.";
+        booksViewHolder.description.setText(description);
     }
 
     @Override
